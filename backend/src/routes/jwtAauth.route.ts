@@ -4,8 +4,9 @@ import bcrypt from "bcrypt";
 import pool from "../db";
 const router = Router();
 import jwtGenerator from "../utils/jwtGenerator";
+import validInfo from "../middleware/validinfo";
 
-router.route("/register").post(async (req, res) => {
+router.route("/register").post(validInfo, async (req, res) => {
   try {
     // 1. desctructure the req.body
     const { name, email, password } = req.body;
@@ -33,8 +34,8 @@ router.route("/register").post(async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-router.route("/login").post(async (req, res) => {
+// it is called middleware because is called in the middle of the request
+router.route("/login").post(validInfo, async (req, res) => {
   try {
     // 1. desctructure the req.body
     const { email, password } = req.body;
