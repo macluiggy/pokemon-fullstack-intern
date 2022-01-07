@@ -15,7 +15,7 @@ export default async (req, res: Response, next: NextFunction) => {
       // any because we don't know what the payload will be
       jwtToken,
       process.env.JWT_SECRET as unknown as GetPublicKeyOrSecret | Secret
-    ); // verify is a method of jwt that takes the token and the secret and returns the payload wich we can use within our routes
+    ); // verify is a method of jwt that takes the token and the secret and returns the payload wich we can use within our routes, this returns the payload of the token which contains the user id
     req.user = payload.user; // we can use the payload.user to access the user in our routes
     return next();
   } catch (error: any) {
