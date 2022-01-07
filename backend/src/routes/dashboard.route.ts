@@ -14,7 +14,7 @@ router.route("/").get(authorization, async (req, res: Response) => {
       [req.user]
     );
     res.json(user.rows[0]);
-    // console.log(user.rows[0]);
+    // console.log(user.rows[0]);d
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server error");
