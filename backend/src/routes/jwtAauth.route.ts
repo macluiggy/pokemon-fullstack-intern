@@ -5,6 +5,7 @@ import pool from "../db";
 const router = Router();
 import jwtGenerator from "../utils/jwtGenerator";
 import validInfo from "../middleware/validinfo";
+import authorization from "../middleware/authorization";
 
 router.route("/register").post(validInfo, async (req, res) => {
   try {
@@ -57,6 +58,16 @@ router.route("/login").post(validInfo, async (req, res) => {
     res.json({ token });
   } catch (error: any) {
     console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.route("/is-verify").get(authorization, async (req, res) => {
+  try {
+    res.json(true); // if the authorization middleware for the token is working as expected, return true
+  } catch (error) {
+    trace(error);
+    res.status(500).send("Server error");
   }
 });
 export default router;
