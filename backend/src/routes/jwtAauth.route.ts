@@ -38,7 +38,7 @@ router.route("/login").post(async (req, res) => {
   try {
     // 1. desctructure the req.body
     const { email, password } = req.body;
-    //2 check if the user exists if not return throw error
+    //2 check if the user exists if not throw error
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
     ]);
@@ -49,7 +49,8 @@ router.route("/login").post(async (req, res) => {
       password,
       user.rows[0].user_password
     ); // compare is a method of bcrypt that takes the password and the hash and returns true or false depending on if the password is correct
-    if (!validPassword) res.status(401).send("Password or email is incorrect");
+    if (!validPassword)
+      return res.status(401).send("Password or email is incorrect");
     //4. give them the jwt token
     const token = jwtGenerator(user.rows[0].user_id);
     res.json({ token });
