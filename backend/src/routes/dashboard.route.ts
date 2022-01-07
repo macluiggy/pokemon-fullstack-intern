@@ -1,11 +1,11 @@
-// import { Router } from "express";
-// const router = Router();
-const router = require("express").Router();
+import { Router } from "express";
+const router = Router();
+// const router = require("express").Router();
 import { Request, Response, NextFunction } from "express";
 import pool from "../db";
 import authorization from "../middleware/authorization";
 
-router.route("/").get(authorization, async (req, res: Response) => {
+router.route("/").get(authorization, async (req: any, res: Response) => {
   try {
     // req.user has the payload of the jwt token
     // res.json(req.user);

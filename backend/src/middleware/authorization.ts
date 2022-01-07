@@ -1,6 +1,8 @@
 import jwt, { GetPublicKeyOrSecret, Secret } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-require("dotenv").config();
+import { config } from "dotenv";
+config();
+// require("dotenv").config();
 // basically here will be the logic to check if the user is authenticated, this is done by checking if the token is valid, that means if the token providen is the same as the one created by the server with the secret key
 export default async (req, res: Response, next: NextFunction) => {
   try {

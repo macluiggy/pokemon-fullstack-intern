@@ -1,5 +1,7 @@
 import jwt, { Secret } from "jsonwebtoken";
-require("dotenv").config();
+// require("dotenv").config();
+import { config } from "dotenv";
+config();
 
 function jwtGenerator(user_id) {
   const payload = {
