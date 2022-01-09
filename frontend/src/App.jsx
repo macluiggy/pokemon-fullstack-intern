@@ -5,8 +5,6 @@ import {
   Route,
   Switch,
   Redirect,
-  Link,
-  RouteComponentProps,
 } from "react-router-dom";
 
 // components
