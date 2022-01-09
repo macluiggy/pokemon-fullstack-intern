@@ -4,3 +4,4 @@ pnpm-lock.yaml
 /build/bundle.js
 /build/index.html
 /build/bundle.js.LICENSE.txt
+.env
