@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { proxy } from "../../config";
 
 const Dashboard = ({ setAuth }) => {
@@ -22,6 +23,7 @@ const Dashboard = ({ setAuth }) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
+    toast.success("Logout Successfully!");
   };
   useEffect(() => {
     getName();
