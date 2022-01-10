@@ -20,7 +20,7 @@ const App = () => {
   return (
     <div className="App">
       <Fragment>
-        {/* <Dashboard /> */}
+        <h1> hello </h1>
         <Router>
           <Switch>
             <Route
