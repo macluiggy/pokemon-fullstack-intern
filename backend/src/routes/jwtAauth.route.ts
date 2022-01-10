@@ -11,6 +11,9 @@ router.route("/register").post(validInfo, async (req, res) => {
   try {
     // 1. desctructure the req.body
     const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.json({ missingCredentials: "Missing credentials" });
+    }
     // 2. check if the user exists
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
@@ -46,7 +49,9 @@ router.route("/login").post(validInfo, async (req, res) => {
       email,
     ]);
     if (!user.rows[0])
-      return res.status(401).send("Password or email is incorrect"); // 401 means unthenticated
+      return res
+        .status(401)
+        .json({ passwordOrEmailIsIncorrect: "Password or email is incorrect" }); // 401 means unthenticated
     // 3. check if the password is correct, the password is the same as the one in the database
     const validPassword = await bcrypt.compare(
       password,

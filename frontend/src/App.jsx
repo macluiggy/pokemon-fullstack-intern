@@ -6,31 +6,35 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { proxy } from "./config";
 // components
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+toast.configure();
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   // const navigate = useNavigate();d
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
-  // const isAuth = async () => {
-  //   try {
-  //     const response = await fetch(`${proxy}/auth/is-verify`, {
-  //       method: "GET",
-  //       headers: { token: localStorage.token },
-  //     });
-  //     const parseRes = await response.json();
-  //     console.log(parseRes);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const isAuth = async () => {
+    try {
+      const response = await fetch(`${proxy}/auth/is-verify`, {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+      const parseRes = await response.json();
+      console.log(parseRes);
+      parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   useEffect(() => {
-    // isAuth();
+    isAuth();
   }, []);
   return (
     <div className="App">

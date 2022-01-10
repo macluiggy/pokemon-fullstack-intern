@@ -12,7 +12,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     console.log(!!email);
     if (![email, name, password].every(Boolean)) {
       // if the email, name and password are not all filled
-      return res.status(401).json("Missing credentials"); // 401 means unauthenticated
+      return res.json({ missingCredentials: "Missing credentials" }); // 401 means unauthenticated
     } else if (!validEmail(email)) {
       // if the email is not valid
       return res.status(401).json("Invalid email"); // return invalid email
@@ -21,7 +21,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     // if the path is login
     if (![email, password].every(Boolean)) {
       // if the email and password are not all filled
-      return res.json("Missing credentials"); // 401 means unauthenticated
+      return res.json({ missingCredentials: "Missing credentials" }); // 401 means unauthenticated
     } else if (!validEmail(email)) {
       // if the email is not valid
       return res.status(401).json("Invalid email"); // return invalid email

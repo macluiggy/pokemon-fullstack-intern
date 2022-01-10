@@ -25,11 +25,15 @@ const rulesForSass = {
     "sass-loader",
   ],
 };
+const rulesForCss = {
+  test: /\.css$/i,
+  use: ["style-loader", "css-loader"],
+};
 
 module.exports = {
   entry: path.resolve(CURRENT_WORKING_DIR, "src/index.tsx"),
   module: {
-    rules: [rulesForJavaScript, rulesForTypescript, rulesForSass],
+    rules: [rulesForJavaScript, rulesForTypescript, rulesForSass, rulesForCss],
   },
   output: {
     filename: "bundle.js",

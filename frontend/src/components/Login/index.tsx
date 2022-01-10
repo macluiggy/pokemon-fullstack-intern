@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { proxy } from "../../config";
+import { toast } from "react-toastify";
 
 const Login = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -24,12 +25,18 @@ const Login = ({ setAuth }) => {
       });
       const parseRes = await response.json();
       console.log("response", response, parseRes);
-      if (parseRes.userAlreadyExists)
-        return console.log(parseRes.userAlreadyExists);
-
+      if (parseRes.missingCredentials) {
+        console.log(parseRes.missingCredentials);
+        return toast.error(parseRes.missingCredentials);
+      }
+      if (parseRes.passwordOrEmailIsIncorrect) {
+        console.log(parseRes.passwordOrEmailIsIncorrect);
+        return toast.error(parseRes.passwordOrEmailIsIncorrect);
+      }
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
+        toast.success("Login Successfully!");
       }
     } catch (error: any) {
       console.error(error.message);
