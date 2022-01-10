@@ -13,7 +13,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const navigate = useNavigate();
+  // const navigate = useNavigate();d
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
