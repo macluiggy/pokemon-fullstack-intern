@@ -15,7 +15,8 @@ router.route("/register").post(validInfo, async (req, res) => {
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
     ]);
-    if (user.rows[0]) return res.status(401).json("User already exists"); // 401 means unauthorized
+    if (user.rows[0])
+      return res.status(401).json({ userAlreadyExists: "User already exists" }); // 401 means unauthorized
     // res.json(user.rows);
     // 3.bcrypt the password
     const saltRounds = 10;

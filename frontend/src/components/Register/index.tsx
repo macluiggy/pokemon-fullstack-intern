@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { proxy } from "../../config";
 
-const Register = () => {
+const Register = ({ setAuth }) => {
   const [inputs, setInputs] = React.useState({
     email: "",
     password: "",
@@ -28,6 +29,13 @@ const Register = () => {
       });
       const parseRes = await response.json();
       console.log("response", response, parseRes);
+      if (parseRes.userAlreadyExists)
+        return console.log(parseRes.userAlreadyExists);
+
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+      }
     } catch (error: any) {
       console.error(error.message);
     }
@@ -61,6 +69,10 @@ const Register = () => {
           onChange={onChange}
         />
         <button className="btn btn-success btn-block">Submit</button>
+        <Link to="/login" className="btn btn-light btn-block my-3">
+          {" "}
+          Login{" "}
+        </Link>
       </form>
     </Fragment>
   );
