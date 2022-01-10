@@ -9,7 +9,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (req.path === "/register") {
     // if the path is register
-    console.log(!email);
+    console.log(!!email);
     if (![email, name, password].every(Boolean)) {
       // if the email, name and password are not all filled
       return res.status(401).json("Missing credentials"); // 401 means unauthenticated
