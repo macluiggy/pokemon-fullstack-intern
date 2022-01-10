@@ -9,7 +9,7 @@ const Register = () => {
   });
   const { email, password, name } = inputs;
   const onChange = ({ target: { name, value } }) => {
-    // console.log(name, value);
+    // console.log(name, value);f
 
     setInputs({ ...inputs, [name]: value });
   };
