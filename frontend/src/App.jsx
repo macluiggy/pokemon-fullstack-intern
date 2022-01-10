@@ -1,4 +1,4 @@
-import React, { Fragment, useState, FC } from "react";
+import React, { Fragment, useState, FC, useEffect } from "react";
 import "./App.scss";
 import {
   BrowserRouter as Router,
@@ -6,7 +6,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
+import { proxy } from "./config";
 // components
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -17,6 +17,21 @@ const App = () => {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+  // const isAuth = async () => {
+  //   try {
+  //     const response = await fetch(`${proxy}/auth/is-verify`, {
+  //       method: "GET",
+  //       headers: { token: localStorage.token },
+  //     });
+  //     const parseRes = await response.json();
+  //     console.log(parseRes);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+  useEffect(() => {
+    // isAuth();
+  }, []);
   return (
     <div className="App">
       <Fragment>
