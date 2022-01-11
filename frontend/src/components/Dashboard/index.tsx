@@ -68,7 +68,7 @@ const Dashboard = ({ setAuth }) => {
   }, []);
   useEffect(() => {
     getFavoritePokemons();
-  }, [favoritePokemons]);
+  }, [name]);
   return (
     <Fragment>
       <h1>Dashboard {name}</h1>
