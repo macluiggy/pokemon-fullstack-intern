@@ -6,8 +6,30 @@ const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
   const [pokemons, setPokemons] = useState<any[]>([]);
   const [favoritePokemons, setFavoritePokemons] = useState<any[]>([]);
-  async function setFavoritePokemon(token) {
-    
+  const [id, setId] = useState("");
+  async function setFavoritePokemon(pokemon_name) {
+    console.log(id);
+    const body = { user_id: id, pokemon_name };
+    const response = await fetch(`${proxy}/dashboard/set-favorite/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const parseRes = await response.json();
+    console.log(parseRes);
+  }
+  async function getFavoritePokemons() {
+    try {
+      const response = await fetch(`${proxy}/dashboard/set-favorite/`, {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+      const parseRes = await response.json();
+      setFavoritePokemons([...new Set(parseRes)]);
+      console.log(favoritePokemons);
+    } catch (error) {
+      console.error(error);
+    }
   }
   async function getName() {
     try {
@@ -19,6 +41,7 @@ const Dashboard = ({ setAuth }) => {
       });
       const parseRes = await response.json();
       setName(parseRes.user_name);
+      setId(parseRes.user_id);
       console.log(parseRes);
     } catch (error: any) {
       console.error(error.message);
@@ -43,6 +66,9 @@ const Dashboard = ({ setAuth }) => {
     getName();
     getPokemons();
   }, []);
+  useEffect(() => {
+    getFavoritePokemons();
+  }, [favoritePokemons]);
   return (
     <Fragment>
       <h1>Dashboard {name}</h1>
@@ -67,7 +93,9 @@ const Dashboard = ({ setAuth }) => {
                 style={{ border: "solid", margin: "1em auto" }}
               >
                 <h3>{pokemon.name}</h3>
-                <button onClick={() => setFavoritePokemon(localStorage.token)}>set favorite</button>
+                <button onClick={() => setFavoritePokemon(pokemon.name)}>
+                  set favorite
+                </button>
               </div>
             );
           })}
@@ -77,7 +105,15 @@ const Dashboard = ({ setAuth }) => {
           style={{
             border: "solid",
           }}
-        ></div>
+        >
+          {favoritePokemons.map((pokemon, i) => {
+            return (
+              <div key={i}>
+                <h3>{pokemon.pokemon_name}</h3>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Fragment>
   );

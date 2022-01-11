@@ -14,7 +14,7 @@ const Login = ({ setAuth }) => {
   };
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    console.log("submitting form", e);
+    // console.log("submitting form", e);
 
     try {
       const body = { email, password };
@@ -34,6 +34,7 @@ const Login = ({ setAuth }) => {
         return toast.error(parseRes.passwordOrEmailIsIncorrect);
       }
       if (parseRes.token) {
+        // localStorage.setItem("user_id", parseRes.user.user_id);
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
         toast.success("Login Successfully!");

@@ -33,7 +33,7 @@ router.route("/register").post(validInfo, async (req, res) => {
     // res.json(newUser.rows[0]);
     //5. generating our jwt token
     const token = jwtGenerator(newUser.rows[0].user_id);
-    return res.json({ token });
+    return res.json({ token, user: newUser.rows[0] });
   } catch (error) {
     trace(error);
     res.status(500).json("Server error");
@@ -58,10 +58,12 @@ router.route("/login").post(validInfo, async (req, res) => {
       user.rows[0].user_password
     ); // compare is a method of bcrypt that takes the password and the hash and returns true or false depending on if the password is correct
     if (!validPassword)
-      return res.status(401).send("Password or email is incorrect");
+      return res
+        .status(401)
+        .json({ passwordOrEmailIsIncorrect: "Password or email is incorrect" });
     //4. give them the jwt token
     const token = jwtGenerator(user.rows[0].user_id);
-    res.json({ token });
+    res.json({ token, user: user.rows[0] });
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server error");

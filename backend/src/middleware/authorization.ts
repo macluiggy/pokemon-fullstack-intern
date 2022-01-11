@@ -21,7 +21,7 @@ export default async (req, res: Response, next: NextFunction) => {
     req.user = payload.user; // we can use the payload.user to access the user in our routes
     return next();
   } catch (error: any) {
-    console.log(error);
+    console.log(error, "error in authorization.ts");
     return res.status(403).send("Not Authorized"); // 403 means forbidden
   }
 };

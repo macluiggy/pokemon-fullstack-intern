@@ -40,6 +40,7 @@ const Register = ({ setAuth }) => {
       }
 
       if (parseRes.token) {
+        // localStorage.setItem("user_id", parseRes.user.user_id);
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
         toast.success("Register Successfully!");
