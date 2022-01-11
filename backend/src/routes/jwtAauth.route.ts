@@ -11,9 +11,9 @@ router.route("/register").post(validInfo, async (req, res) => {
   try {
     // 1. desctructure the req.body
     const { name, email, password } = req.body;
-    if (!name || !email || !password) {
-      return res.json({ missingCredentials: "Missing credentials" });
-    }
+    // if (!name || !email || !password) {
+    //   return res.json({ missingCredentials: "Missing credentials" });
+    // }
     // 2. check if the user exists
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
