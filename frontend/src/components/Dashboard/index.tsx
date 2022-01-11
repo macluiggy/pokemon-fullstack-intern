@@ -4,6 +4,11 @@ import { proxy } from "../../config";
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
+  const [pokemons, setPokemons] = useState<any[]>([]);
+  const [favoritePokemons, setFavoritePokemons] = useState<any[]>([]);
+  async function setFavoritePokemon(token) {
+    
+  }
   async function getName() {
     try {
       const response = await fetch(`${proxy}/dashboard`, {
@@ -19,6 +24,15 @@ const Dashboard = ({ setAuth }) => {
       console.error(error.message);
     }
   }
+  async function getPokemons() {
+    try {
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+      const parseRes = await response.json();
+      setPokemons(parseRes.results);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
@@ -27,6 +41,7 @@ const Dashboard = ({ setAuth }) => {
   };
   useEffect(() => {
     getName();
+    getPokemons();
   }, []);
   return (
     <Fragment>
@@ -35,6 +50,35 @@ const Dashboard = ({ setAuth }) => {
       <button className="btn btn-primaty" onClick={logout}>
         logout
       </button>
+      <div
+        className="pokemons-container"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          border: "1px solid red",
+          justifyContent: "center",
+        }}
+      >
+        <div className="pokemons">
+          {pokemons.map((pokemon) => {
+            return (
+              <div
+                key={pokemon.name}
+                style={{ border: "solid", margin: "1em auto" }}
+              >
+                <h3>{pokemon.name}</h3>
+                <button onClick={() => setFavoritePokemon(localStorage.token)}>set favorite</button>
+              </div>
+            );
+          })}
+        </div>
+        <div
+          className="favorite-pokemons"
+          style={{
+            border: "solid",
+          }}
+        ></div>
+      </div>
     </Fragment>
   );
 };

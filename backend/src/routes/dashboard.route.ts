@@ -27,7 +27,7 @@ router
       // req.user has the payload of the jwt token
       // res.json(req.user);
       const user = await pool.query(
-        "SELECT * FROM favorite_pokemon WHERE user_id = $1",
+        "SELECT * FROM favorite_pokemons WHERE user_id = $1",
         [req.user]
       );
       res.json(user.rows[0]);
@@ -40,6 +40,8 @@ router
   .post(async (req, res) => {
     try {
       const { user_id, pokemon_name } = req.body;
+      // 1. verify if the user with the id exists
+      await pool.query("SELECT * FROM users WHERE user_id = $1", [user_id]); // if the id is invalid the catch will be called
       const newFavoritePokemon = await pool.query(
         "INSERT INTO favorite_pokemons (user_id, pokemon_name) VALUES ($1, $2) RETURNING *",
         [user_id, pokemon_name]
