@@ -7,6 +7,7 @@ const Dashboard = ({ setAuth }) => {
   const [pokemons, setPokemons] = useState<any[]>([]);
   const [favoritePokemons, setFavoritePokemons] = useState<any[]>([]);
   const [id, setId] = useState("");
+  const [currentFavoitePokemon, setCurrentFavoitePokemon] = useState<any>("");
   async function setFavoritePokemon(pokemon_name) {
     console.log(id);
     const body = { user_id: id, pokemon_name };
@@ -17,6 +18,7 @@ const Dashboard = ({ setAuth }) => {
     });
     const parseRes = await response.json();
     console.log(parseRes);
+    setCurrentFavoitePokemon(parseRes.pokemon_name);
   }
   async function getFavoritePokemons() {
     try {
@@ -68,7 +70,7 @@ const Dashboard = ({ setAuth }) => {
   }, []);
   useEffect(() => {
     getFavoritePokemons();
-  }, [name]);
+  }, [currentFavoitePokemon]);
   return (
     <Fragment>
       <h1>Dashboard {name}</h1>
