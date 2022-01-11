@@ -75,7 +75,11 @@ const Dashboard = ({ setAuth }) => {
     <Fragment>
       <h1>Hello {name}</h1>
       {/* <button onClick={() => setAuth(false)}>Logout</button> */}
-      <button className="btn btn-primaty" onClick={logout}>
+      <button
+        className="btn btn-primaty"
+        onClick={logout}
+        style={{ backgroundColor: "red" }}
+      >
         logout
       </button>
       <div
@@ -83,7 +87,6 @@ const Dashboard = ({ setAuth }) => {
         style={{
           display: "flex",
           flexDirection: "row",
-          border: "1px solid red",
           justifyContent: "center",
         }}
       >
