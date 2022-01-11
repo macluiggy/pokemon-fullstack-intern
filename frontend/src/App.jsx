@@ -5,6 +5,7 @@ import {
   Route,
   Switch,
   Redirect,
+  Link,
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -39,7 +40,16 @@ const App = () => {
   return (
     <div className="App">
       <Fragment>
-        <h1> hello </h1>
+        {!isAuthenticated ? (
+          <div>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+          </div>
+        ) : (
+          <div>
+            <h1>Dashboard</h1>
+          </div>
+        )}
         <Router>
           <Switch>
             <Route

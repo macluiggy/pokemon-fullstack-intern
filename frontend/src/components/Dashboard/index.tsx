@@ -73,7 +73,7 @@ const Dashboard = ({ setAuth }) => {
   }, [currentFavoitePokemon]);
   return (
     <Fragment>
-      <h1>Dashboard {name}</h1>
+      <h1>Hello {name}</h1>
       {/* <button onClick={() => setAuth(false)}>Logout</button> */}
       <button className="btn btn-primaty" onClick={logout}>
         logout
